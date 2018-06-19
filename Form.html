@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+    box-sizing: border-box;
+}
+
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+</style>
+</head>
+<body>
+
+<h2>Results Form</h2>
+<p>To find a user's ID, go into Discord's developer mode and right click the user</p>
+<div class="row">
+  <div class="column" style="background-color:#aaa;">
+<form action="rating.php">
+    <h3>Team One</h3>
+  Player One:<br>
+  <input type="number" name="one" value="User ID">
+  <br>
+  Player Two:<br>
+  <input type="number" name="two" value="User ID">
+  <br>
+    Player Three:<br>
+  <input type="number" name="three" value="User ID">
+  <br>
+    Player Four:<br>
+  <input type="number" name="four" value="User ID">
+  <br>
+    Player Five:<br>
+  <input type="number" name="five" value="User ID">
+  <br>
+    Player Six:<br>
+  <input type="number" name="six" value="User ID">
+  <br>
+
+
+  </div>
+  <div class="column" style="background-color:#bbb;">
+    <h3>Team Two</h3>
+  Player Seven:<br>
+  <input type="number" name="seven" value="User ID">
+  <br>
+  Player Eight:<br>
+  <input type="number" name="eight" value="User ID">
+  <br>
+    Player Nine:<br>
+  <input type="number" name="nine" value="User ID">
+  <br>
+    Player Ten:<br>
+  <input type="number" name="ten" value="User ID">
+  <br>
+    Player Eleven:<br>
+  <input type="number" name="eleven" value="User ID">
+  <br>
+    Player Twelve:<br>
+  <input type="number" name="twelve" value="User ID">
+  <br>
+
+
+
+  </div>
+</div>
+<p>Team one Win = 1, Team Two win = 2, Draw 0</p>
+  Result:<br>
+  <input type="number" name="twelve" value="">
+  <br>
+  <input type="submit" value="Submit">
+   </form>
+</body>
+</html>
