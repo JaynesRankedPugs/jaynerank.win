@@ -126,7 +126,6 @@ if($result=0){
 $sql = "UPDATE Main Set draws = draws+1 WHERE discord_id IN(?,?,?,?,?,?,?,?,?,?,?,?)";
 $z = $db->prepare($d1,$d2,$d3,$d4,$d5,$d6,$d7,$d8,$d9,$d10,$d11,$d12);
 $z = $db->execute([$d1,$d2,$d3,$d4,$d5,$d6,$d7,$d8,$d9,$d10,$d11,$d12]);
-exit
 }else if($result = 1){
   //Add a win to players 1-6 and a loss to players 7-12
   //Add $varwin1 to rating of players 1-6, Add $varloss2 to rating of players 7-12
@@ -143,7 +142,6 @@ exit
   $sql = "UPDATE Main Set rating = rating+$varloss2 WHERE discord_id IN(?,?,?,?,?,?)";
   $z = $db->prepare($d7,$d8,$d9,$d10,$d11,$d12;
   $z = $db->execute([$d7,$d8,$d9,$d10,$d11,$d12]);
-  exit
 }else if($result = 2){
   //Add a win to players 7-12, and a loss to players 1-6
   //Add $varloss1 to rating of players 1-6, Add $varwin2 to rating of players 7-12
@@ -160,6 +158,12 @@ exit
   $sql = "UPDATE Main Set rating = rating+$varwin2 WHERE discord_id IN(?,?,?,?,?,?)";
   $z = $db->prepare($d7,$d8,$d9,$d10,$d11,$d12;
   $z = $db->execute([$d7,$d8,$d9,$d10,$d11,$d12]);
-exit
 }
+                     try {
+        $do->execute();
+        header("Location: index.html");
+        die("Successful entry");
+    } catch (PDOException $e) {
+        die("Error updating leaderboards: " . $e->getMessage());
+    }
 ?>
