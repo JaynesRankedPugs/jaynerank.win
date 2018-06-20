@@ -3,8 +3,8 @@ if(isset($_POST['one'], $_POST['two'], $_POST['three'], $_POST['four'], $_POST['
 {
     require_once  "/opt/dbsettings.php";
     $db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
-    $do = $db->prepare('INSERT INTO  (one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, result)
-                        VALUES       (:one, :two, :three, :four, :five, :six, :seven, :eight, :nine, :ten, :eleven, :twelve, :result)');
+    $do = $db->prepare('INSERT INTO MatchHistory (one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, result)
+                        VALUES                   (:one, :two, :three, :four, :five, :six, :seven, :eight, :nine, :ten, :eleven, :twelve, :result)');
 
     $do->bindValue(':one'   , $_POST['one'   ], PDO::PARAM_INT);
     $do->bindValue(':two'   , $_POST['two'   ], PDO::PARAM_INT);
