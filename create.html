@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html>
+
 <body>
-<h2>Player Creation Form</h2>
-<form action="/create.php">
-Name <input type="text" name="name" value="Flow"><br>
-ID   <input type="number" name="ID" value="135996677373952000"><br>
-<input type="submit" value="Submit">
-</form>
+    <h2>Player Creation Form</h2>
+    <form action="create.php" method="POST">
+        Name
+        <input type="text" name="name" placeholder="Flow" required>
+        <br> ID
+        <input type="number" name="discordID" placeholder="135996677373952000" required>
+        <br> rating
+        <input type="number" name="rating" placeholder="1600" value="1600">
+        <br> wins
+        <input type="number" name="wins" placeholder="15" value="15">
+        <br> losses
+        <input type="number" name="losses" placeholder="12" value="12">
+        <br> draws
+        <input type="number" name="draws" placeholder="2" value="2">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
 
-<p>To find a user's ID, go into Discord's developer mode and right click the user
+    <p>To find a user's ID, go into Discord's developer mode and right click the user
 
-</p>
+    </p>
 
 </body>
+
 </html>
