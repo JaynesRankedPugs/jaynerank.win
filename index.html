@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<link rel="stylesheet" type="text/css" href="css/index.css">
-	</head>
-	<body>
-		<nav class="navbar navbar-expand-sm bg-light fixed-top">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link active" href="#">Jayne's Inhouse PUG Leaderboard - Season 1<span class="sr-only">(current)</span></a>
-				</li>
-			</ul>
-		</nav>
-		
-		<div class="content">
-			<div class="container-fluid">
-				<div class="row justify-content-md-center">
-					<div class="leaderboard col-md-auto align-self-center">
-						<iframe frameborder="0" src="leaderboard.php"></iframe>
-					</div>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-sm bg-light fixed-top">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link active" href="#">Jayne's Inhouse PUG Leaderboard - Season 1
+					<span class="sr-only">(current)</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row justify-content-md-center">
+				<div class="leaderboard col-md-auto align-self-center">
+					<div id="leaderboard"></div>
 				</div>
 			</div>
 		</div>
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	</body>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>$("#leaderboard").load("leaderboard.php");</script>
+</body>
+
 </html>
