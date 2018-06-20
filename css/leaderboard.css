@@ -1,32 +1,7 @@
-* {
-	font-family: Arial, sans-serif;
-}
-
 body {
 	margin: 0;
 }
 
 #leaderboard {
 	width: 100%;
-	font-size: 14px;
-	text-align: center;
-	border-width: 0px;
-	border-collapse: collapse;
-	border-spacing: 0;
-	overflow: hidden;
-	word-break: normal;
-}
-
-.tg th {
-	font-weight: bold;
-	padding: 10px 5px;
-	color: #fff;
-	background-color: #26ADE4;
-}
-
-.tg td {
-	font-weight: normal;
-	padding: 10px 5px;
-	color: #444;
-	background-color: #F7FDFA;
 }
