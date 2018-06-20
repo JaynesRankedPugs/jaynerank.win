@@ -44,7 +44,8 @@ if(isset($_POST['team1_player1'], $_POST['team1_player2'], $_POST['team1_player3
 
       $do = $db->prepare("INSERT INTO Main (discord_id, name, rating, wins, losses, draws)
                           VALUES (:discordID, :name, :rating, :wins, :losses, :draws)
-                          ON DUPLICATE KEY IGNORE");
+                          ON DUPLICATE KEY UPDATE
+                            rating = rating");
 
       $do->bindValue(':discordID', $discord_id, PDO::PARAM_INT);
       $do->bindValue(':name', "", PDO::PARAM_STR);
