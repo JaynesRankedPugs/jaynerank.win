@@ -6,7 +6,7 @@ if(isset($_POST['name'], $_POST['discordID']))
     $do = $db->prepare('INSERT INTO Main (discord_id, name, rating, wins, losses, draws)
                         VALUES (:discordID, :name, :rating, :wins, :losses, :draws)
                         ON DUPLICATE KEY UPDATE
-                            name = :name');
+                            name = :name;');
 
     $do->bindValue(':discordID', $_POST['discordID'], PDO::PARAM_INT);
     $do->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
