@@ -7,37 +7,46 @@
 </style>
 <h3 style="text-align: center;"><strong>Jayne's </strong>Inhouse<strong> PUG Ladder</strong></h3>
 <h3 style="text-align: center;"><strong>Season One</strong></h3>
-<table class="tg" align="center">
-  <tr>
-    <th class="tg-c3ow">Rank</th>
-    <th class="tg-c3ow">Name</th>
-    <th class="tg-c3ow">Rating</th>
-    <th class="tg-c3ow">Wins</th>
-    <th class="tg-c3ow">Losses</th>
-    <th class="tg-c3ow">Draws</th>
-  </tr>
-  <tr>
-    <td class="tg-c3ow">1</td>
-    <td class="tg-c3ow">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</td>
-    <td class="tg-c3ow">1800</td>
-    <td class="tg-c3ow">130</td>
-    <td class="tg-c3ow">280</td>
-    <td class="tg-c3ow">0</td>
-  </tr>
-  <tr>
-    <td class="tg-c3ow">2</td>
-    <td class="tg-c3ow">y</td>
-    <td class="tg-c3ow"></td>
-    <td class="tg-c3ow"></td>
-    <td class="tg-c3ow"></td>
-    <td class="tg-c3ow"></td>
-  </tr>
-  <tr>
-    <td class="tg-us36"></td>
-    <td class="tg-us36"></td>
-    <td class="tg-us36"></td>
-    <td class="tg-us36"></td>
-    <td class="tg-us36"></td>
-    <td class="tg-us36"></td>
-  </tr>
-</table>
+<?php
+$database = mysql_connect('localhost', 'JayneRate', 'tSkqm3Cs9gI4CCiy') or die('Could not connect: ' . mysql_error());
+mysql_select_db('JayneRating') or die('Could not select database');
+
+$query = "SELECT * FROM `Main` ORDER by `rating`";
+$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+
+$num_results = mysql_num_rows($result);
+$ranking = 1;
+
+?>
+
+<div class="container marketing">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <table class="gradienttable">
+            <tr>
+                <th>Ranking</th>
+                <th>Name</th>
+                <th>Rating</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>Draws</th>
+            </tr>
+            <?php
+            while($row = mysql_fetch_array($result)){
+                ?>
+                <tr>
+                    <td><?php echo $ranking; ?></td>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['rating']; ?></td>
+                    <td><?php echo $row['wins']; ?></td>
+                    <td><?php echo $row['losses']; ?></td>
+                    <td><?php echo $row['draws']; ?></td>
+
+                    <?php
+                    $ranking = $ranking + 1;
+                    ?>
+                </tr>
+                <?php
+            } /* END OF WHILE LOOP */
+            ?>
+
+        </table>
