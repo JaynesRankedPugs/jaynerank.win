@@ -160,7 +160,6 @@ $z = $db->execute([$d1,$d2,$d3,$d4,$d5,$d6,$d7,$d8,$d9,$d10,$d11,$d12]);
   $z = $db->execute([$d7,$d8,$d9,$d10,$d11,$d12]);
 }
                      try {
-        $do->execute();
         header("Location: index.html");
         die("Successful entry");
     } catch (PDOException $e) {
