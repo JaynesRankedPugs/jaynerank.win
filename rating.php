@@ -35,8 +35,6 @@ if(isset($_POST['team1_player1'],
     $lobby_sql_helper  = str_repeat('?,', count($lobby) - 1) . '?';
     $team_sql_helper  = str_repeat('?,', count($team1) - 1) . '?';
 
-
-    
 //Add players not already in DB to DB
     $sql="INSERT INTO Main(discord_id, name) VALUES (?,?) ON DUPLICATE KEY UPDATE discord_id = discord_id;";
     for ($i = 0 ; $i < count($lobby) ; $i++)
@@ -58,8 +56,8 @@ MARKER;
 
 	$do  = $db->prepare($sql);
         try {
-	$do->execute(array_merge([$result],$team1,$team2));
-	} catch (PDOException $e) {
+            $do->execute(array_merge([$result],$team1,$team2));
+        } catch (PDOException $e) {
             die ("Error Updating Match History: " . $e->getMessage());
         }
 
@@ -82,12 +80,12 @@ MARKER;
     $K_CONST         = 32;
     $elodifference1 = ($teamrating_2-$teamrating_1);
     $percentage1    = 1/(1+(pow(10, $elodifference1/400)));
-    $varwin1        = ($K_CONST*(1-$percentage1));
-    $varloss1       = ($K_CONST*(0-$percentage1));
+    $varwin1        = (int)($K_CONST*(1-$percentage1));
+    $varloss1       = (int)($K_CONST*(0-$percentage1));
     $elodifference2 = ($teamrating_1-$teamrating_2);
-    $percentage2    = 1/(1+(pow(10, $elodifference2/400)));
-    $varwin2        = ($K_CONST*(1-$percentage2));
-    $varloss2       = ($K_CONST*(0-$percentage2));
+    $percentage2    = (1/(1+(pow(10, $elodifference2/400))));
+    $varwin2        = (int)($K_CONST*(1-$percentage2));
+    $varloss2       = (int)($K_CONST*(0-$percentage2));
     //Changes Calculated
     //---------------------------------------------------------------
     //Changing Rating and Wins/Losses/Draws
@@ -96,8 +94,8 @@ MARKER;
     if($result == 0){
         //Add a draw to all twelve players
         $sql = "UPDATE Main SET draws = draws+1 WHERE discord_id IN ($lobby_sql_helper)";
-        $do  = $db->prepare($sql);
         try {
+            $do  = $db->prepare($sql);
             $do->execute($lobby);
         } catch (PDOException $e) {
             die ("Error Updating Draw Ratings: " . $e->getMessage());
@@ -105,46 +103,43 @@ MARKER;
         header("Location: Form.html");
         die ("Successful Update.");
     }
-	else if($result == 1){
+    if($result == 1){
         //Add a win to players 1-6 and a loss to players 7-12
         //Add $varwin1 to rating of players 1-6, Add $varloss2 to rating of players 7-12
         $sql = "UPDATE Main SET wins = wins+1, rating = rating+$varwin1 WHERE discord_id IN ($team_sql_helper)";
-        $do  = $db->prepare($sql);
         try {
+            $do  = $db->prepare($sql);
             $do->execute($team1);
         } catch (PDOException $e) {
             die ("Error Updating team1 win Ratings: " . $e->getMessage());
         }
-        $sql = "UPDATE Main SET losses = losses+1, rating+$varloss2 WHERE discord_id IN($team_sql_helper)";
-        $do  = $db->prepare($sql);
+        $sql = "UPDATE Main SET losses = losses+1, rating = rating+$varloss2 WHERE discord_id IN ($team_sql_helper)";
         try {
+            $do  = $db->prepare($sql);        
             $do->execute($team2);
         } catch (PDOException $e) {
             die ("Error Updating team2 loss Ratings: " . $e->getMessage());
         }
         header("Location: Form.html");
         die ("Successful Update.");
-		
-		
-    }else if($result == 2){
+    }
+    if($result == 2){
        //Add a win to players 7-12, and a loss to players 1-6
         //Add $varloss1 to rating of players 1-6, Add $varwin2 to rating of players 7-12
-        $sql = "UPDATE Main SET losses = losses+1, rating = rating+$varloss1 WHERE discord_id IN($team_sql_helper)";
-        $do  = $db->prepare($sql);
+        $sql = "UPDATE Main SET losses = losses+1, rating = rating+$varloss1 WHERE discord_id IN ($team_sql_helper)";
         try {
+            $do  = $db->prepare($sql);
             $do->execute($team1);
         } catch (PDOException $e) {
             die ("Error Updating team2 win Ratings: " . $e->getMessage());
         }
-        $sql = "UPDATE Main SET wins = wins+1, rating = rating+$varwin2 WHERE discord_id IN($team_sql_helper)";
-        $do  = $db->prepare($sql);
+        $sql = "UPDATE Main SET wins = wins+1, rating = rating+$varwin2 WHERE discord_id IN ($team_sql_helper)";
         try{
+            $do  = $db->prepare($sql);
             $do->execute($team2);
         } catch (PDOException $e) {
             die ("Error Updating team1 loss Ratings: " . $e->getMessage());
         }
-		
-		
         header("Location: Form.html");
         die ("Successful Update");
     }
