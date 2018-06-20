@@ -21,21 +21,20 @@
 					require_once  "/opt/dbsettings.php";
 
 					$db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
-					$do = $db->prepare("SELECT * FROM `Main` ORDER by `rating`");
+					$do = $db->prepare("SELECT * FROM `Main` ORDER by `rating` DESC");
 					$do->execute();
-					
 					$ranking = 0;
 					while ($row = $do->fetch(PDO::FETCH_ASSOC)) {
 						$ranking += 1;
-						$winrate = round(100 * $row[wins] / ($row[wins] + $row[losses] + $row[draws]), 1);
+						$winrate = round(100 * $row["wins"] / ($row["wins"] + $row["losses"] + $row["draws"]), 1);
 						
 						echo "<tr>";
 						echo "<td>#".$ranking."</td>";
-						echo "<td>".$row[name]."</td>";
-						echo "<td>".$row[rating]."</td>";
-						echo "<td>".$row[wins]."</td>";
-						echo "<td>".$row[losses]."</td>";
-						echo "<td>".$row[draws]."</td>";
+						echo "<td>".$row["name"]."</td>";
+						echo "<td>".$row["rating"]."</td>";
+						echo "<td>".$row["wins"]."</td>";
+						echo "<td>".$row["losses"]."</td>";
+						echo "<td>".$row["draws"]."</td>";
 						echo "<td>".$winrate."%</td>";
 						echo "</tr>";
 					}
