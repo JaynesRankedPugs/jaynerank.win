@@ -18,16 +18,14 @@
 					<th>Winrate</th>
 				</tr>
 				<?php
-					require "/opt/dbsettings.php";
-					$charset = "utf8mb4";
-					$dsn = "mysql:host=$host;dbname=$database;charset=$charset";
+					require_once  "/opt/dbsettings.php";
 					$opt = [
 						PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 						PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 						PDO::ATTR_EMULATE_PREPARES => false,
 					];
 					
-					$pdo = new PDO($dsn, $username, $password, $opt);
+					$db = new PDO(JAYNE_CON . JAYNE_DB . JAYNE_DB_CHARSET, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
 					$stmt = $pdo->prepare("SELECT * FROM `Main` ORDER by `rating`");
 					$stmt->execute();
 					
