@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/leaderboard.css">
+	</head>
+	<body>
+		<table id="leaderboard" class="tg" align="center">
+			<tbody>
+				<tr>
+					<th></th>
+					<th>Player</th>
+					<th>Rating</th>
+					<th>Wins</th>
+					<th>Losses</th>
+					<th>Draws</th>
+					<th>Winrate</th>
+				</tr>
+				<?php
+					$database = mysql_connect("localhost", "JayneRate", "tSkqm3Cs9gI4CCiy") or die("Could not connect: " . mysql_error());
+					mysql_select_db("JayneRating") or die("Could not select database");
+					$query = "SELECT * FROM `Main` ORDER by `rating`";
+					$result = mysql_query($query) or die("Query failed: " . mysql_error());
+					$ranking = 0;
+					
+					while ($row = mysql_fetch_array($result)) {
+						$ranking += 1;
+						echo "<tr>";
+						echo "<td>".$ranking."</td>";
+						echo "<td>".$row[name]."</td>";
+						echo "<td>".$row[rating]."</td>";
+						echo "<td>".$row[wins]."</td>";
+						echo "<td>".$row[losses]."</td>";
+						echo "<td>".$row[draws]."</td>";
+						echo "<td>".round($row[wins] / ($row[wins] + $row[losses] + $row[draws]), 1)."%</td>";
+						echo "</tr>";
+					}
+				?>
+			</tbody>
+		</table>
+	</body>
+</html>
