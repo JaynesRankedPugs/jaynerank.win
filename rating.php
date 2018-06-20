@@ -1,5 +1,4 @@
 <?php
-<?php
 if(isset($_POST['team1_player1'], 
          $_POST['team1_player2'], 
          $_POST['team1_player3'], 
