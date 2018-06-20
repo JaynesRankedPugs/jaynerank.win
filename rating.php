@@ -58,8 +58,8 @@ MARKER;
 
 	$do  = $db->prepare($sql);
         try {
-            $do->execute([$result,$team1[0],$team1[1],$team1[2],$team1[3],$team1[4],$team1[5],$team2[0],$team2[1],$team2[2],$team2[3],$team2[4],$team2[5]]);
-        } catch (PDOException $e) {
+	$do->execute(array_merge([$result],$team1,$team2));
+	} catch (PDOException $e) {
             die ("Error Updating Match History: " . $e->getMessage());
         }
 
