@@ -12,25 +12,22 @@
 					<th>Rank</th>
 					<th>Player</th>
 					<th>Rating</th>
-					<th>Wins</th>
+					<th>Wins</th>	
 					<th>Losses</th>
 					<th>Draws</th>
 					<th>Winrate</th>
 				</tr>
 				<?php
-					$host = "localhost";
-					$db = "JayneRating";
-					$user = "JayneRate";
-					$pass = "tSkqm3Cs9gI4CCiy";
+					require "/opt/dbsettings.php";
 					$charset = "utf8mb4";
-					$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+					$dsn = "mysql:host=$host;dbname=$database;charset=$charset";
 					$opt = [
 						PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
 						PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 						PDO::ATTR_EMULATE_PREPARES => false,
 					];
 					
-					$pdo = new PDO($dsn, $user, $pass, $opt);
+					$pdo = new PDO($dsn, $username, $password, $opt);
 					$stmt = $pdo->prepare("SELECT * FROM `Main` ORDER by `rating`");
 					$stmt->execute();
 					
