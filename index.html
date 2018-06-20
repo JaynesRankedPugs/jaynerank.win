@@ -32,7 +32,7 @@ $ranking = 1;
             </tr>
             <?php
             while($row = mysql_fetch_array($result)){
-                ?>
+            
                 <tr>
                     <td><?php echo $ranking; ?></td>
                     <td><?php echo $row['name']; ?></td>
@@ -41,7 +41,7 @@ $ranking = 1;
                     <td><?php echo $row['losses']; ?></td>
                     <td><?php echo $row['draws']; ?></td>
 
-                    <?php
+                    
                     $ranking = $ranking + 1;
                     ?>
                 </tr>
