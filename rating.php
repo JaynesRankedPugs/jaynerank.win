@@ -2,6 +2,9 @@
 if(isset($_POST['team1_player1'], $_POST['team1_player2'], $_POST['team1_player3'], $_POST['team1_player4'], $_POST['team1_player5'], $_POST['team1_player6'], $_POST['team2_player1'], $_POST['team2_player2'], $_POST['team2_player3'], $_POST['team2_player4'], $_POST['team2_player5'], $_POST['team2_player6'], $_POST['result'])
 {
     require_once  "/opt/dbsettings.php";
+
+    $result = $_POST['result'];
+
     $db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
     $do = $db->prepare('INSERT INTO MatchHistory (team1_player1, team1_player2, team1_player3, team1_player4, team1_player5, team1_player6, team2_player1, team2_player2, team2_player3, team2_player4, team2_player5, team2_player6, result)
                         VALUES                   (:team1_player1, :team1_player2, :team1_player3, :team1_player4, :team1_player5, :team1_player6, :team2_player1, :team2_player2, :team2_player3, :team2_player4, :team2_player5, :team2_player6, :result)');
@@ -18,34 +21,38 @@ if(isset($_POST['team1_player1'], $_POST['team1_player2'], $_POST['team1_player3
     $do->bindValue(':team2_player4', $_POST['team2_player4'], PDO::PARAM_INT);
     $do->bindValue(':team2_player5', $_POST['team2_player5'], PDO::PARAM_INT);
     $do->bindValue(':team2_player6', $_POST['team2_player6'], PDO::PARAM_INT);
-    $do->bindValue(':result', $_POST['result'], PDO::PARAM_INT);
+    $do->bindValue(':result', $result, PDO::PARAM_INT);
 
     try {
         $do->execute();
     } catch (PDOException $e) {
         die("Error updating Match History: " . $e->getMessage());
     }
-    $d1 = $_POST['team1_player1'];
-    $d2 = $_POST['team1_player2'];
-    $d3 = $_POST['team1_player3'];
-    $d4 = $_POST['team1_player4'];
-    $d5 = $_POST['team1_player5'];
-    $d6 = $_POST['team1_player6'];
-    $d7 = $_POST['team2_player1'];
-    $d8 = $_POST['team2_player2'];
-    $d9 = $_POST['team2_player3'];
-    $d10 = $_POST['team2_player4'];
-    $d11 = $_POST['team2_player5'];
-    $d12 = $_POST['team2_player6'];
-    $result = $_POST['result'];
 
-    $team1 = array( $d1, $d2, $d3, $d4, $d5, $d6 );
-    $team2 = array( $d7, $d8, $d9, $d10, $d11, $d12);
+    $team1 = array( $_POST['team1_player1'], $_POST['team1_player2'], $_POST['team1_player3'], $_POST['team1_player4'], $_POST['team1_player5'], $_POST['team1_player6']);
+    $team2 = array( $_POST['team2_player1'], $_POST['team2_player2'], $_POST['team2_player3'], $_POST['team2_player4'], $_POST['team2_player5'], $_POST['team2_player6']);
     $lobby = array_merge($team1,$team2)
 
-    $team1_ids = implode(',', array_fill(0, count($team1), '?'));
-    $team2_ids = implode(',', array_fill(0, count($team2), '?'));
+    $team_ids = implode(',', array_fill(0, count($team1), '?'));
     $ids = $team1_ids . $team2_ids;
+
+    //Add players not already in DB to DB
+
+    for ($i = 0, $lobby_size = count ($lobby); $i < $lobby_size; $i++)
+    {
+      $discord_id = $lobby[$i];
+
+      $do = $db->prepare("INSERT INTO Main (discord_id, name, rating, wins, losses, draws)
+                          VALUES (:discordID, :name, :rating, :wins, :losses, :draws)
+                          ON DUPLICATE KEY IGNORE");
+
+      $do->bindValue(':discordID', $discord_id, PDO::PARAM_INT);
+      $do->bindValue(':name', "", PDO::PARAM_STR);
+      $do->bindValue(':rating', 1600, PDO::PARAM_INT);
+      $do->bindValue(':wins', 0, PDO::PARAM_INT);
+      $do->bindValue(':losses', 0, PDO::PARAM_INT);
+      $do->bindValue(':draws', 0, PDO::PARAM_INT);
+    }
 
     //Fetch ratings for each and define ratings//
 
