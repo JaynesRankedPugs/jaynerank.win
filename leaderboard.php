@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<table id="leaderboard" class="tg" align="center">
-			<tbody>
+			<thead>
 				<tr>
 					<th>Rank</th>
 					<th>Player</th>
@@ -17,6 +17,8 @@
 					<th>Draws</th>
 					<th>Winrate</th>
 				</tr>
+			</thead>
+			<tbody>
 				<?php
 					require_once  "/opt/dbsettings.php";
 
@@ -29,13 +31,13 @@
 						$winrate = round(100 * $row["wins"] / ($row["wins"] + $row["losses"] + $row["draws"]), 1);
 
 						echo "<tr>";
-						echo "<td>#".$ranking."</td>";
-						echo "<td>".$row["name"]."</td>";
-						echo "<td>".$row["rating"]."</td>";
-						echo "<td>".$row["wins"]."</td>";
-						echo "<td>".$row["losses"]."</td>";
-						echo "<td>".$row["draws"]."</td>";
-						echo "<td>".$winrate."%</td>";
+						echo "\t<td>#".$ranking."</td>";
+						echo "\t<td>".$row["name"]."</td>";
+						echo "\t<td>".$row["rating"]."</td>";
+						echo "\t<td>".$row["wins"]."</td>";
+						echo "\t<td>".$row["losses"]."</td>";
+						echo "\t<td>".$row["draws"]."</td>";
+						echo "\t<td>".$winrate."%</td>";
 						echo "</tr>";
 					}
 				?>
