@@ -160,9 +160,9 @@ $z = $db->execute([$d1,$d2,$d3,$d4,$d5,$d6,$d7,$d8,$d9,$d10,$d11,$d12]);
   $z = $db->execute([$d7,$d8,$d9,$d10,$d11,$d12]);
 }
   //add match history                   
-  $sql = "INSERT INTO `MatchHistory` (`Match_ID`, `WinningTeam`, `TimeStamp`, `Discord_ID1`, `Discord_ID2`, `Discord_ID3`, `Discord_ID4`, `Discord_ID5`, `Discord_ID6`, `Discord_ID7`, `Discord_ID8`, `Discord_ID9`, `Discord_ID10`, `Discord_ID11`, `Discord_ID12`) VALUES (NULL, ? , CURRENT_TIMESTAMP, ?,?,?,?,?,?,?,?,?,?,?,?)";
-  $z = $db->prepare($result,$d1,$d2,$d3,$d4,$d5,$d6,$d7,$d8,$d9,$d10,$d11,$d12;
-  $z = $db->execute([$result,$d1,$d2,$d3,$d4,$d5,$d6,$d7,$d8,$d9,$d10,$d11,$d12]);
+  //$sql = "INSERT INTO `MatchHistory` (`Match_ID`, `WinningTeam`, `TimeStamp`, `Discord_ID1`, `Discord_ID2`, `Discord_ID3`, `Discord_ID4`, `Discord_ID5`, `Discord_ID6`, `Discord_ID7`, `Discord_ID8`, `Discord_ID9`, `Discord_ID10`, `Discord_ID11`, `Discord_ID12`) VALUES (NULL, ? , CURRENT_TIMESTAMP, ?,?,?,?,?,?,?,?,?,?,?,?)";
+  //$z = $db->prepare($result,$d1,$d2,$d3,$d4,$d5,$d6,$d7,$d8,$d9,$d10,$d11,$d12;
+  //$z = $db->execute([$result,$d1,$d2,$d3,$d4,$d5,$d6,$d7,$d8,$d9,$d10,$d11,$d12]);
                     
                      try {
         header("Location: index.html");
