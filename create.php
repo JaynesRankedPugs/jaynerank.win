@@ -1,24 +1,22 @@
 <?php
-$servername = "PEOPLE_ARE_DUMB";
-$username = "PEOPLE_ARE_DUMB";
-$password = "PEOPLE_ARE_DUMB";
-$dbname = "PEOPLE_ARE_DUMB";
-$discord_id = "ID";
-$d_name = "name";
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-$sql = "INSERT INTO Main (discord_id, name, rating, wins, losses, draws)
-VALUES ('$discord_id', '$d_name', '1600', '0', '0', '0')";
+require_once  "/opt/dbsettings.php";
 
-if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
+$db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
 
-$conn->close();
+$discordID = 87593699638280192;
+$name = 'Smug';
+
+
+$do = $db->prepare('INSERT INTO Main (discord_id, name, rating, wins, losses, draws)
+                    VALUES (:discordID, :name, :rating, :wins, :losses, :draws)');
+
+$do->bindValue(':discordID', $discordID, PDO::PARAM_INT);
+$do->bindValue(':name', $name, PDO::PARAM_STR);
+$do->bindValue(':rating', 5000 , PDO::PARAM_INT);
+$do->bindValue(':wins', 100 , PDO::PARAM_INT);
+$do->bindValue(':losses', 0, PDO::PARAM_INT);
+$do->bindValue(':draws', 0, PDO::PARAM_INT);
+
+$do->execute();
+echo "Executed!";
 ?>
