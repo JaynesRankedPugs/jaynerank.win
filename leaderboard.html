@@ -18,22 +18,35 @@
 					<th>Winrate</th>
 				</tr>
 				<?php
-					$database = mysql_connect("localhost", "JayneRate", "tSkqm3Cs9gI4CCiy") or die("Could not connect: " . mysql_error());
-					mysql_select_db("JayneRating") or die("Could not select database");
-					$query = "SELECT * FROM `Main` ORDER by `rating`";
-					$result = mysql_query($query) or die("Query failed: " . mysql_error());
-					$ranking = 0;
+					$host = "localhost";
+					$db = "JayneRating";
+					$user = "JayneRate";
+					$pass = "tSkqm3Cs9gI4CCiy";
+					$charset = "utf8mb4";
+					$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+					$opt = [
+						PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+						PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+						PDO::ATTR_EMULATE_PREPARES => false,
+					];
 					
-					while ($row = mysql_fetch_array($result)) {
+					$pdo = new PDO($dsn, $user, $pass, $opt);
+					$stmt = $pdo->prepare("SELECT * FROM `Main` ORDER by `rating`");
+					$stmt->execute();
+					
+					$ranking = 0;
+					while ($row = $stmt->fetch()) {
 						$ranking += 1;
+						$winrate = round(100 * $row[wins] / ($row[wins] + $row[losses] + $row[draws]), 1);
+						
 						echo "<tr>";
-						echo "<td>".$ranking."</td>";
+						echo "<td>#".$ranking."</td>";
 						echo "<td>".$row[name]."</td>";
 						echo "<td>".$row[rating]."</td>";
 						echo "<td>".$row[wins]."</td>";
 						echo "<td>".$row[losses]."</td>";
 						echo "<td>".$row[draws]."</td>";
-						echo "<td>".round($row[wins] / ($row[wins] + $row[losses] + $row[draws]), 1)."%</td>";
+						echo "<td>".$winrate."%</td>";
 						echo "</tr>";
 					}
 				?>
