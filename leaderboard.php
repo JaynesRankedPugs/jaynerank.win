@@ -19,19 +19,13 @@
 				</tr>
 				<?php
 					require_once  "/opt/dbsettings.php";
-					$opt = [
-						PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-						PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-						PDO::ATTR_EMULATE_PREPARES => false,
-					];
-					
+
 					$db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
 					$do = $db->prepare("SELECT * FROM `Main` ORDER by `rating`");
 					$do->execute();
-					$do->execute();
 					
 					$ranking = 0;
-					while ($row = $do->fetch()) {
+					while ($row = $do->fetch(PDO::FETCH_ASSOC)) {
 						$ranking += 1;
 						$winrate = round(100 * $row[wins] / ($row[wins] + $row[losses] + $row[draws]), 1);
 						
