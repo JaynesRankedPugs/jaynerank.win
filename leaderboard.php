@@ -12,7 +12,7 @@
 					<th>Rank</th>
 					<th>Player</th>
 					<th>Rating</th>
-					<th>Wins</th>	
+					<th>Wins</th>
 					<th>Losses</th>
 					<th>Draws</th>
 					<th>Winrate</th>
@@ -27,7 +27,7 @@
 					while ($row = $do->fetch(PDO::FETCH_ASSOC)) {
 						$ranking += 1;
 						$winrate = round(100 * $row["wins"] / ($row["wins"] + $row["losses"] + $row["draws"]), 1);
-						
+
 						echo "<tr>";
 						echo "<td>#".$ranking."</td>";
 						echo "<td>".$row["name"]."</td>";
