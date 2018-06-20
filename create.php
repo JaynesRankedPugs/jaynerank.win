@@ -15,7 +15,8 @@ if(isset($_POST['name'], $_POST['discordID']))
 
     try {
         $do->execute();
-        echo "Executed!";
+        header("Location: index.html");
+        die("Successful entry");
     } catch (PDOException $e) {
         die("Error updating leaderboards: " . $e->getMessage());
     }
