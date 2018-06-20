@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "JayneRate";
-$password = "tSkqm3Cs9gI4CCiy";
-$dbname = "JayneRating";
+$servername = "PEOPLE_ARE_DUMB";
+$username = "PEOPLE_ARE_DUMB";
+$password = "PEOPLE_ARE_DUMB";
+$dbname = "PEOPLE_ARE_DUMB";
 $discord_id = "ID";
 $d_name = "name";
 // Create connection
