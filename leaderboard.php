@@ -25,12 +25,13 @@
 						PDO::ATTR_EMULATE_PREPARES => false,
 					];
 					
-					$db = new PDO(JAYNE_CON . JAYNE_DB . JAYNE_DB_CHARSET, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
-					$stmt = $pdo->prepare("SELECT * FROM `Main` ORDER by `rating`");
-					$stmt->execute();
+					$db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
+					$do = $db->prepare("SELECT * FROM `Main` ORDER by `rating`");
+					$do->execute();
+					$do->execute();
 					
 					$ranking = 0;
-					while ($row = $stmt->fetch()) {
+					while ($row = $do->fetch()) {
 						$ranking += 1;
 						$winrate = round(100 * $row[wins] / ($row[wins] + $row[losses] + $row[draws]), 1);
 						
