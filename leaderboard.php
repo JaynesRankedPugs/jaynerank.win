@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="css/leaderboard.css">
 	</head>
 	<body>
-		<table id="leaderboard" class="table table-hover" align="center">
+		<table id="leaderboard" class="table table-hover">
 			<thead class="thead-dark">
 				<tr>
 					<th>Rank</th>

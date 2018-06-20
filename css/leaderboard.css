@@ -1,3 +1,19 @@
+table {
+	font-size: 2vw;
+}
+
+@media screen and (max-width: 425px) {
+	table {
+		font-size: 8.5px;
+	}
+}
+
+@media screen and (min-width: 700px) {
+	table {
+		font-size: 14px;
+	}
+}
+
 body {
 	margin: 0;
 }

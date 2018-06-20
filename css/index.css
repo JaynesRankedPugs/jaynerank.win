@@ -1,9 +1,9 @@
 .content {
-	margin: 10px;
-	padding: 4rem 0em;
+	margin: 3.5rem 1rem 2rem 1rem;
+	padding: 1.5rem 1rem;
 }
 
 .leaderboard {
-	min-width: 400px;
-	width: 800px;
+	min-width: 375px;
+	width: 55vw;
 }
