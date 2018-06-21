@@ -21,12 +21,6 @@ footer {
 	font-weight: 300;
 }
 
-.leaderboard-wrapper {
-	min-width: 375px;
-	width: 55vw;
-}
-
-
 @media screen and (min-width: 992px) {
 	.w-md-65 {
 		width: 65%;
