@@ -18,6 +18,7 @@ footer {
 .content {
 	margin: 3.5rem 1rem 2rem 1rem;
 	padding: 1.5rem 1rem;
+	font-weight: 300;
 }
 
 .leaderboard-wrapper {
@@ -25,12 +26,11 @@ footer {
 	width: 55vw;
 }
 
-.w-85 {
-	width: 85%;
-}
 
-.rules {
-	font-weight: 300;
+@media screen and (min-width: 992px) {
+	.w-md-65 {
+		width: 65%;
+	}
 }
 
 .green {
