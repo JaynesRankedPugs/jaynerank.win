@@ -24,7 +24,7 @@
 					require_once "/opt/dbsettings.php";
 
 					$db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
-					$do = $db->prepare("SELECT * FROM `Main` WHERE wins > 0 OR losses > 0 OR draws > 0 ORDER by `rating` DESC");
+					$do = $db->prepare("SELECT * FROM `Main` WHERE (wins+losses+draws) > 0 ORDER by `rating` DESC");
 					$do->execute();
 					$ranking = 0;
 					while ($row = $do->fetch(PDO::FETCH_ASSOC)) {
