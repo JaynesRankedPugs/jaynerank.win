@@ -38,6 +38,7 @@
 					<small class="text-black-50 font-weight-light">
 						20th Jun 2018-Present
 					</small>
+					<input type="checkbox" name="ListAll" checked id="ListAll">
 				</h1>
 				
 				<div class="d-flex justify-content-center">
@@ -58,6 +59,13 @@
 		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
-		<script>$("#leaderboard").load("leaderboard.php");</script>
+		<script>$("#ListAll").prop('checked', false); //unselect checkbox by default
+                        $("#leaderboard").load("leaderboard.php", {'full':"0"}); //load normal leaderboard by default
+                        $("#ListAll").change(function() { //on button click
+                                if($(this).prop('checked')) $("#leaderboard").load("leaderboard.php", {'full':"1"});
+                                else                        $("#leaderboard").load("leaderboard.php", {'full':"0"});
+                        });
+                </script>
+
 	</body>
 </html>
