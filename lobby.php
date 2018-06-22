@@ -1,5 +1,5 @@
 <?php
-require_once team.php;
+namespace JayneRank;
 
 class Lobby
 {
@@ -25,10 +25,8 @@ class Lobby
     $this->$team1 = $new_team1;
     $this->$team2 = $new_team2;
 
-    $ratings = array_merge($this->get_team1()->get_ratings(), $this->get_team2()->get_ratings());
-
-    $teamrating_1   = ((array_sum(array_slice($ratings, 0, 6)))/6);
-    $teamrating_2   = ((array_sum(array_slice($ratings, 6, 6)))/6);
+    $teamrating_1   = $this->getTeam1()->getTeamRating();
+    $teamrating_2   = $this->getTeam2()->getTeamRating();
     $K_CONST        = 32;
     $elodifference1 = ($teamrating_2-$teamrating_1);
     $percentage1    = 1/(1+(pow(10, $elodifference1/400)));
@@ -48,43 +46,43 @@ class Lobby
     $this->$team2_win_team2_change = $varwin2;
   }
 
-  public get_team1 (): Team {
+  public getTeam1 (): Team {
     return $this->$team1;
   }
 
-  public get_team2 (): Team {
+  public getTeam2 (): Team {
     return $this->$team2;
   }
 
-  public get_team1_win_chance (): float {
+  public getTeam1WinChance (): float {
     return $this->$team1_win_chance;
   }
 
-  public get_team2_win_chance (): float {
+  public getTeam2WinChance (): float {
     return $this->$team2_win_chance;
   }
 
-  public get_team1_win_team1_change (): int {
+  public getTeam1WinTeam1Change (): int {
     return $this->$team1_win_team1_change;
   }
 
-  public get_team1_win_team2_change (): int {
+  public getTeam1WinTeam2Change (): int {
     return $this->$team1_win_team2_change;
   }
 
-  public get_team2_win_team1_change (): int {
+  public getTeam2WinTeam1Change (): int {
     return $this->$team2_win_team1_change;
   }
 
-  public get_team2_win_team2_change (): int {
+  public getTeam2WinTeam2Change (): int {
     return $this->$team2_win_team2_change;
   }
 
-  public set_team1 (Team $new_team1) {
+  public setTeam1 (Team $new_team1) {
     $this->$team1 = $new_team1;
   }
 
-  public set_team2 (Team $new_team2) {
+  public setTeam2 (Team $new_team2) {
     $this->$team2 = $new_team2;
   }
 

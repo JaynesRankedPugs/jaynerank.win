@@ -1,4 +1,6 @@
 <?php
+namespace JayneRank;
+
 class Player
 {
 
@@ -35,87 +37,97 @@ class Player
     $this->$wins = $new_wins;
     $this->$losses = $new_losses;
     $this->$draws = $new_draws;
+    $win_percentage = round(100 * $this->getWins() / ($this->getWins() + $this->getDraws() + $this->getDraws()), 1);
     $win_percentage = round(100 * $this->$wins / ($this->$wins + $this->$losses + $this->$draws), 1);
     $this->$winrate = (is_nan($win_percentage) ? 0 : $win_percentage);
   }
 
-  public function get_discord_id (): int {
+  function __set (string $name, $value) {
+    $win_percentage = round(100 * $this->getWins() / ($this->getWins() + $this->getDraws() + $this->getDraws()), 1);
+    $this->$winrate = (is_nan($win_percentage) ? 0 : $win_percentage);
+  }
+
+  public function getDiscordID (): int {
     return $this->$discord_id;
   }
 
-  public function get_name (): string {
+  public function getName (): string {
     return $this->$name;
   }
 
-  public function get_rating (): int {
+  public function getRating (): int {
     return $this->$rating;
   }
 
-  public function get_wins (): int {
+  public function getWins (): int {
     return $this->$wins;
   }
 
-  public function get_losses (): int {
+  public function getDraws (): int {
     return $this->$losses;
   }
 
-  public function get_draws (): int {
+  public function getDraws (): int {
     return $this->$draws;
   }
 
-  public function get_winrate (): float {
+  public function getWinrate (): float {
     return $this->$winrate;
   }
 
-  public function set_discord_id (int $new_discord_id) {
+  public function setDiscordID (int $new_discord_id) {
     $this->$discord_id = $new_discord_id;
   }
 
-  public function set_name (string $new_name) {
+  public function setName (string $new_name) {
     $this->$name = $new_discord_id;
   }
 
-  public function set_rating (int $new_rating) {
+  private function setRating (int $new_rating) {
     $this->$rating = $new_rating;
   }
 
-  private function set_wins (int $new_wins) {
+  public function changeRating (int $change_rating) {
+    $this->$rating += $change_rating;
+  }
+
+  private function setWins (int $new_wins) {
     $this->$wins = $new_wins;
-    $win_percentage = round(100 * $this->$wins / ($this->$wins + $this->$losses + $this->$draws), 1);
+    $win_percentage = round(100 * $this->getWins() / ($this->getWins() + $this->getDraws() + $this->getDraws()), 1);
     $this->$winrate = (is_nan($win_percentage) ? 0 : $win_percentage);
   }
 
-  public function add_win () {
+  public function addWin () {
     $this->$wins++;
-    $win_percentage = round(100 * $this->$wins / ($this->$wins + $this->$losses + $this->$draws), 1);
+    $win_percentage = round(100 * $this->getWins() / ($this->getWins() + $this->getDraws() + $this->getDraws()), 1);
     $this->$winrate = (is_nan($win_percentage) ? 0 : $win_percentage);
   }
 
-  private function set_losses (int $new_losses) {
+  private function setLosses (int $new_losses) {
     $this->$losses = $new_losses;
-    $win_percentage = round(100 * $this->$wins / ($this->$wins + $this->$losses + $this->$draws), 1);
+    $win_percentage = round(100 * $this->getWins() / ($this->getWins() + $this->getDraws() + $this->getDraws()), 1);
     $this->$winrate = (is_nan($win_percentage) ? 0 : $win_percentage);
   }
 
-  public function add_loss () {
+  public function addLoss () {
     $this->$losses++;
-    $win_percentage = round(100 * $this->$wins / ($this->$wins + $this->$losses + $this->$draws), 1);
+    $win_percentage = round(100 * $this->getWins() / ($this->getWins() + $this->getDraws() + $this->getDraws()), 1);
     $this->$winrate = (is_nan($win_percentage) ? 0 : $win_percentage);
   }
 
-  private function set_draws (int $new_draws) {
+  private function setDraws (int $new_draws) {
     $this->$draws = $new_draws;
-    $win_percentage = round(100 * $this->$wins / ($this->$wins + $this->$losses + $this->$draws), 1);
+    $win_percentage = round(100 * $this->getWins() / ($this->getWins() + $this->getDraws() + $this->getDraws()), 1);
     $this->$winrate = (is_nan($win_percentage) ? 0 : $win_percentage);
   }
 
-  public function add_draw () {
+  public function addDraw () {
     $this->$draws++;
-    $win_percentage = round(100 * $this->$wins / ($this->$wins + $this->$losses + $this->$draws), 1);
+    $win_percentage = round(100 * $this->getWins() / ($this->getWins() + $this->getDraws() + $this->getDraws()), 1);
     $this->$winrate = (is_nan($win_percentage) ? 0 : $win_percentage);
   }
 
-  private function set_winrate (float $new_winrate) {
+  private function setWinrate (float $new_winrate) {
     $this->$winrate = $new_winrate;
   }
 

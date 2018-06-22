@@ -1,13 +1,41 @@
 <?php
-require_once lobby.php;
+namespace JayneRank;
 
 class Match
 {
+    private $Match_ID
     private $lobby;
-    private $result;
-    private $time_stamp;
+    private $WinningTeam;
+    private $TimeStamp;
     private $team1_change;
     private $team2_change;
+
+    function __set(string $name, $value) {
+      if $name == "Discord_ID1" {
+      }
+      if $name == "Discord_ID2" {
+      }
+      if $name == "Discord_ID3" {
+      }
+      if $name == "Discord_ID4" {
+      }
+      if $name == "Discord_ID5" {
+      }
+      if $name == "Discord_ID6" {
+      }
+      if $name == "Discord_ID7" {
+      }
+      if $name == "Discord_ID8" {
+      }
+      if $name == "Discord_ID9" {
+      }
+      if $name == "Discord_ID10" {
+      }
+      if $name == "Discord_ID11" {
+      }
+      if $name == "Discord_ID12" {
+      }
+    }
 
     function __construct() {
       $a = func_get_args();
@@ -17,55 +45,55 @@ class Match
       }
     }
 
-    function __construct3 ($new_lobby, $new_result, $new_time_stamp) {
+    function __construct3 ($new_lobby, $new_WinningTeam, $new_TimeStamp) {
       $this->$lobby = $new_lobby;
-      $this->$result = $new_result;
-      $this->$time_stamp = $new_time_stamp;
+      $this->$WinningTeam = $new_WinningTeam;
+      $this->$TimeStamp = $new_TimeStamp;
 
-      if $this->get_result() == 0 {
+      if $this->getWinningTeam() == 0 {
         $this->$team1_change = 0;
         $this->$team2_change = 0;
       }
-      if $this->get_result() == 1 {
-        $this->$team1_change = $this->get_lobby()->get_team1_win_team1_change();
-        $this->$team2_change = $this->get_lobby()->get_team1_win_team2_change();
+      if $this->getWinningTeam() == 1 {
+        $this->$team1_change = $this->getLobby()->getTeam1WinTeam1Change();
+        $this->$team2_change = $this->getLobby()->getTeam1WinTeam2Change();
       }
-      if $this->get_result() == 2 {
-        $this->$team1_change = $this->get_lobby()->get_team2_win_team1_change();
-        $this->$team2_change = $this->get_lobby()->get_team2_win_team2_change();
+      if $this->getWinningTeam() == 2 {
+        $this->$team1_change = $this->getLobby()->getTeam2WinTeam1Change();
+        $this->$team2_change = $this->getLobby()->getTeam2WinTeam2Change();
       }
     }
 
-    public function get_lobby (): Lobby {
+    public function getLobby (): Lobby {
       return $this->$lobby;
     }
 
-    public function get_result (): int {
-      return $this->$result;
+    public function getWinningTeam (): int {
+      return $this->$WinningTeam;
     }
 
-    public function get_time_stamp () {
-      return $this->$time_stamp;
+    public function getTimeStamp () {
+      return $this->$TimeStamp;
     }
 
-    public function get_team1_change (): int {
+    public function getTeam1Change (): int {
       return $this->$team1_change;
     }
 
-    public function get_team2_change (): int {
+    public function getTeam2Change (): int {
       return $this->$team2_change;
     }
 
-    public function set_lobby (Lobby $new_lobby) {
+    public function setLobby (Lobby $new_lobby) {
       $this->$lobby = $new_lobby;
     }
 
-    public function set_result (int $new_result) {
-      $this->$result = $new_result;
+    public function setWinningTeam (int $new_WinningTeam) {
+      $this->$WinningTeam = $new_WinningTeam;
     }
 
-    public function set_time_stamp ($new_time_stamp) {
-      $this->$time_stamp = $new_time_stamp;
+    public function setTimeStamp ($new_TimeStamp) {
+      $this->$TimeStamp = $new_TimeStamp;
     }
 
 }
