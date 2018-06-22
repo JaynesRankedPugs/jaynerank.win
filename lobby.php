@@ -1,4 +1,6 @@
 <?php
+require player.php;
+require team.php;
 
 class Lobby
 {

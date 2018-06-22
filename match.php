@@ -1,4 +1,7 @@
 <?php
+require player.php;
+require team.php;
+require lobby.php;
 
 class Match
 {
