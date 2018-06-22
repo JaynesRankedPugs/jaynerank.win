@@ -29,7 +29,7 @@
 <div class="row">
   <div class="column" style="background-color:#aaa;">
 <form action="rating.php" method="POST">
-    <h3>Team One</h3>
+    <h3>Blue Team</h3>
   Player One:<br>
   <input type="number" name="team1_player1" value="User ID" required>
   <br>
@@ -52,7 +52,7 @@
 
   </div>
   <div class="column" style="background-color:#bbb;">
-    <h3>Team Two</h3>
+    <h3>Red Team</h3>
   Player Seven:<br>
   <input type="number" name="team2_player1" value="User ID" required>
   <br>
@@ -76,9 +76,16 @@
 
   </div>
 </div>
-<p>Team one Win = 1, Team Two win = 2, Draw 0</p>
+<br>
   Result:<br>
-  <input type="number" name="result" value="" required>
+  <div>
+    <input type="radio" id="team1" name="result" value=1/>
+    <label for="team1">Blue Team Wins</label>
+    <input type="radio" id="team2" name="result" value=2/>
+    <label for="team2">Red Team Wins</label>
+    <input type="radio" id="draw" name="result" value=0 checked/>
+    <label for="draw">Draw</label>
+  </div>
   <br>
   <input type="submit" value="Submit">
    </form>
