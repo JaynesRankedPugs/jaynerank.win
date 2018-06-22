@@ -24,7 +24,7 @@
 					require_once "/opt/dbsettings.php";
 				
                                         if($_POST['full'] == 1) $nofgames = 0;
-                                        else $nofgames = 6;
+                                        else $nofgames = 4;
 				
 					$db = new PDO(JAYNE_CON . JAYNE_DB_DEV, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
 					$do = $db->prepare("SELECT * FROM `Main` WHERE (wins+losses+draws) > $nofgames ORDER by `rating` DESC");
