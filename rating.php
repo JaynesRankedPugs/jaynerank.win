@@ -1,4 +1,9 @@
 <?php
+
+function array_is_set($array) {
+  return count($array) == count(array_unique($array));
+}
+
 if(isset($_POST['team1_player1'],
          $_POST['team1_player2'],
          $_POST['team1_player3'],
@@ -15,7 +20,7 @@ if(isset($_POST['team1_player1'],
 {
     require_once  "/opt/dbsettings.php";
     $result   = $_POST['result'];
-    $db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt); 
+    $db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
 
     $team1    = array($_POST['team1_player1'],
                       $_POST['team1_player2'],
@@ -23,7 +28,7 @@ if(isset($_POST['team1_player1'],
                       $_POST['team1_player4'],
                       $_POST['team1_player5'],
                       $_POST['team1_player6']);
-					  
+
     $team2    = array($_POST['team2_player1'],
                       $_POST['team2_player2'],
                       $_POST['team2_player3'],
@@ -34,6 +39,10 @@ if(isset($_POST['team1_player1'],
 
     $lobby_sql_helper  = str_repeat('?,', count($lobby) - 1) . '?';
     $team_sql_helper  = str_repeat('?,', count($team1) - 1) . '?';
+
+    if ! array_is_set($lobby) {
+      die("Player List contains Duplicates");
+    }
 
 //Add players not already in DB to DB
     $sql="INSERT INTO Main(discord_id, name) VALUES (?,?) ON DUPLICATE KEY UPDATE discord_id = discord_id;";
@@ -47,29 +56,28 @@ if(isset($_POST['team1_player1'],
                 die ("Error Updating Match History: " . $e->getMessage());
                 }
     }
-	//add to match history
-	$sql = <<<MARKER
-INSERT INTO MatchHistory 
-(Match_ID, WinningTeam, TimeStamp, Discord_ID1, Discord_ID2, Discord_ID3, Discord_ID4, Discord_ID5, Discord_ID6, Discord_ID7, Discord_ID8, Discord_ID9, Discord_ID10, Discord_ID11, Discord_ID12) 
+    //add to match history
+    $sql = <<<MARKER
+INSERT INTO MatchHistory
+(Match_ID, WinningTeam, TimeStamp, Discord_ID1, Discord_ID2, Discord_ID3, Discord_ID4, Discord_ID5, Discord_ID6, Discord_ID7, Discord_ID8, Discord_ID9, Discord_ID10, Discord_ID11, Discord_ID12)
 VALUES (NULL, ?, CURRENT_TIMESTAMP, ?,?,?,?,?,?,?,?,?,?,?,?)
 MARKER;
 
-	$do  = $db->prepare($sql);
-        try {
-            $do->execute(array_merge([$result],$team1,$team2));
-        } catch (PDOException $e) {
-            die ("Error Updating Match History: " . $e->getMessage());
-        }
+    $do  = $db->prepare($sql);
+    try {
+        $do->execute(array_merge([$result],$team1,$team2));
+    } catch (PDOException $e) {
+        die ("Error Updating Match History: " . $e->getMessage());
+    }
 
     //Fetch ratings for each and define ratings//
     $sql  = "SELECT rating FROM Main WHERE discord_id IN ($lobby_sql_helper) ORDER BY FIELD(discord_id,$lobby_sql_helper)";
-	try
-{
-	$do  = $db->prepare($sql);
-             $do->execute(array_merge($lobby,$lobby));
-        } catch (PDOException $e) {
-            die ("Error Updating Match History: " . $e->getMessage());
-        }
+    try {
+      $do  = $db->prepare($sql);
+      $do->execute(array_merge($lobby,$lobby));
+    } catch (PDOException $e) {
+      die ("Error Updating Match History: " . $e->getMessage());
+    }
     $ratings = $do ->fetchAll(PDO::FETCH_COLUMN, 0);
 
 //Variables - 12 ID's, 12 Ratings
@@ -115,7 +123,7 @@ MARKER;
         }
         $sql = "UPDATE Main SET losses = losses+1, rating = rating+$varloss2 WHERE discord_id IN ($team_sql_helper)";
         try {
-            $do  = $db->prepare($sql);        
+            $do  = $db->prepare($sql);
             $do->execute($team2);
         } catch (PDOException $e) {
             die ("Error Updating team2 loss Ratings: " . $e->getMessage());

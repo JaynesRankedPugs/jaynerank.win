@@ -11,10 +11,10 @@ if(isset($_POST['name'], $_POST['discordID']))
     $do->bindValue(':discordID', $_POST['discordID'], PDO::PARAM_INT);
     $do->bindValue(':name', $_POST['name'], PDO::PARAM_STR);
     $do->bindValue(':dup_name', $_POST['name'], PDO::PARAM_STR);
-    $do->bindValue(':rating', $_POST['rating'] , PDO::PARAM_INT);
-    $do->bindValue(':wins', $_POST['wins'] , PDO::PARAM_INT);
-    $do->bindValue(':losses', $_POST['losses'], PDO::PARAM_INT);
-    $do->bindValue(':draws', $_POST['draws'], PDO::PARAM_INT);
+    $do->bindValue(':rating', 1600 , PDO::PARAM_INT);
+    $do->bindValue(':wins', 0 , PDO::PARAM_INT);
+    $do->bindValue(':losses', 0 , PDO::PARAM_INT);
+    $do->bindValue(':draws', 0 , PDO::PARAM_INT);
 
     try {
         $do->execute();
