@@ -1,7 +1,5 @@
 <?php
-require player.php;
-require team.php;
-require lobby.php;
+require_once lobby.php;
 
 class Match
 {
@@ -27,11 +25,11 @@ class Match
       if $this->get_result() == 0 {
         $this->$team1_change = 0;
         $this->$team2_change = 0;
-      } 
+      }
       if $this->get_result() == 1 {
         $this->$team1_change = $this->get_lobby()->get_team1_win_team1_change();
         $this->$team2_change = $this->get_lobby()->get_team1_win_team2_change();
-      } 
+      }
       if $this->get_result() == 2 {
         $this->$team1_change = $this->get_lobby()->get_team2_win_team1_change();
         $this->$team2_change = $this->get_lobby()->get_team2_win_team2_change();

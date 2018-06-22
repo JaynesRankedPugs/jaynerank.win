@@ -1,5 +1,5 @@
 <?php
-require player.php;
+require_once player.php;
 
 function array_mean (array $arry): float {
     return (array_sum($arry))/count($arry);
