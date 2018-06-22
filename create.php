@@ -2,7 +2,7 @@
 if(isset($_POST['name'], $_POST['discordID']))
 {
     require_once  "/opt/dbsettings.php";
-    $db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
+    $db = new PDO(JAYNE_CON . JAYNE_DB_DEV, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
     $do = $db->prepare("INSERT INTO Main (discord_id, name, rating, wins, losses, draws)
                         VALUES (:discordID, :name, :rating, :wins, :losses, :draws)
                         ON DUPLICATE KEY UPDATE

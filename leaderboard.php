@@ -26,7 +26,7 @@
                                         if($_POST['full'] == 1) $nofgames = 0;
                                         else $nofgames = 5;
 				
-					$db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
+					$db = new PDO(JAYNE_CON . JAYNE_DB_DEV, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
 					$do = $db->prepare("SELECT * FROM `Main` WHERE (wins+losses+draws) > $nofgames ORDER by `rating` DESC");
 					$do->execute();
 					$ranking = 0;
