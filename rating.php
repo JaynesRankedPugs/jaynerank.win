@@ -20,7 +20,7 @@ if(isset($_POST['team1_player1'],
 {
     require_once  "/opt/dbsettings.php";
     $result   = $_POST['result'];
-    $db = new PDO(JAYNE_CON . JAYNE_DB_DEV, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
+    $db = new PDO(JAYNE_CON . JAYNE_DB, JAYNE_DB_USER, JAYNE_DB_PASS, $opt);
 
     $team1    = array($_POST['team1_player1'],
                       $_POST['team1_player2'],
