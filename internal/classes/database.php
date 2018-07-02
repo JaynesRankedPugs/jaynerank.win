@@ -7,20 +7,19 @@ use PDO;
 {
   class Database
   {
+      public $conn;
+      private $db;
+      private $user;
+      private $pass;
+      private $host;
+      private $resp;
 
-    public $conn;
-    private $db;
-    private $user;
-    private $pass;
-    private $host;
-    private $resp;
-
-    /**
-    * This is run each time the class is called.
-    *
-    * @param  string   $ENV  Define which database is being used
-    * @return void
-    */
+      /**
+      * This is run each time the class is called.
+      *
+      * @param  string   $ENV  Define which database is being used
+      * @return void
+      */
       public function __construct(string $ENV)
       {
           if (file_exists(__dir__.'/main.php')) {
@@ -59,14 +58,16 @@ use PDO;
           }
       }
 
-     /**
-      * Returns leaderboard under spesificed conditions
-      *
-      * @param  string    $mode  What method to select Users from.
-      * @return string    Return leaderboard
-      */
+      /**
+       * Returns leaderboard under spesificed conditions
+       *
+       * @param  string    $mode  What method to select Users from.
+       * @return string    Return leaderboard
+       */
       public function getBoard($mode): string
       {
+          $mode = filter_var($mode, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+
           // People can abuse the fact that $_REQUEST (GET/POST) parameters
           // accept arrays if you pass them as param[]=foobar
           // This can often cause unwanted results such as information leak.
@@ -136,31 +137,35 @@ use PDO;
        */
       public function userRegister(string $username, string $password): bool
       {
+          // Always sanitize user input
+          $username = filter_var($username, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+          $password = trim($password);
 
-        // To check if the user exist
-        $do =
+          // To check if the user exist
+          $do =
           $this->conn->prepare("SELECT username FROM Users WHERE username = (:username)");
-        $do->bindParam(":username", $username);
-        $do->execute();
-        $result = $do->fetch();
+          $do->bindParam(":username", $username);
+          $do->execute();
+          $result = $do->fetch();
 
-        // If the user already exists we just return FALSE so the program knows
-        if ($result['username'] == $username) {
-            return FALSE;
-        }
+          // If the user already exists we just return FALSE so the program knows
+          if ($result['username'] == $username) {
+              return false;
+          }
 
-        // If everything else is fine, we'll create the user
-        // Passwords HAVE to be stored with a secure password hashing method. [1]
-        // [1] https://en.wikipedia.org/wiki/Bcrypt
-        $do = $this->conn->prepare(
+          // If everything else is fine, we'll create the user
+          // Passwords HAVE to be stored with a secure password hashing method. [1]
+          // [1] https://en.wikipedia.org/wiki/Bcrypt
+          $do = $this->conn->prepare(
           "INSERT INTO Users (username, password, signup_date)".
           "VALUES (:username, :password, NOW())"
         );
-        $hased_password = password_hash($password, PASSWORD_BCRYPT);
-        $do->bindParam(":username", $username);
-        $do->bindParam(":password", $hased_password);
-        $do->execute();
-        return TRUE;
+          $hased_password = password_hash($password, PASSWORD_BCRYPT);
+          $do->bindParam(":username", $username);
+          $do->bindParam(":password", $hased_password);
+          $do->execute();
+          $_SESSION["username"] = $username;
+          return true;
       }
 
       /**
@@ -176,33 +181,33 @@ use PDO;
       public function userLogin(string $username, string $password): int
       {
 
-        $do =
+          // Always sanitize user input
+          $username = filter_var($username, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+          $password = trim($password);
+
+          $do =
           $this->conn->prepare("SELECT * FROM Users WHERE username = (:username)");
-        $do->bindParam(":username", $username);
-        $do->execute();
-        $result = $do->fetch();
+          $do->bindParam(":username", $username);
+          $do->execute();
+          $result = $do->fetch();
 
-        // User isnt registered
-        if (empty($result['username'])){
-          return 2;
-        }
+          // User isnt registered
+          if (empty($result['username'])) {
+              return 2;
+          }
 
-        // Password matches, user logged in.
-        if (password_verify($password, $result['password'])) {
-          $_SESSION["username"] = $username;
-	  return 1;
-        }
+          // Password matches, user logged in.
+          if (password_verify($password, $result['password'])) {
+              $_SESSION["username"] = $username;
+              return 1;
+          }
 
-        // Banned
-        if($result['banned']){
-          return 3;
-        }
-        // Wrong password
-        return 0;
-
-
+          // Banned
+          if ($result['banned']) {
+              return 3;
+          }
+          // Wrong password
+          return 0;
       }
-
-
   }
 }

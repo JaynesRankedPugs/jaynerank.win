@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+}
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,10 +15,10 @@
   <title></title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="/">Jayne's Ranked PUGs</a>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">Rankings</a>
@@ -21,17 +27,18 @@
             <div class="dropdown-divider"></div><a class="dropdown-item" href="#">Season 1</a> <a class="dropdown-item"
             href="#">Season 2</a>
           </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="rules.html">Rules</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="login.html">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="register.html">Register</a>
-        </li>
-      </ul>
+          <li class="nav-item"><a class="nav-link" href="rules.html">Rules</a></li>
+        <?php
+        if (empty($username)) {
+          echo "\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"login.html\">Login</a></li>"
+           . "  <li class=\"nav-item\"><a class=\"nav-link\" href=\"register.html\">Register</a></li>"
+           . "</ul>";
+        } else {
+          echo "\t</li></ul>"
+          . "<span class=\"navbar-text\">Welcome: $username</span>"
+          . "<a class=\"nav-link text-light\" href=\"includes/main.php?do=logout\">Logout</a>";
+        }
+        ?>
     </div>
   </nav>
   <div class="content">
@@ -57,8 +64,8 @@
       </div>
     </div>
   </footer>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/assets/js/main.js" defer></script> <!-- Dev -->
 </body>
 </html>
