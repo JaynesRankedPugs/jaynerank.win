@@ -1,26 +1,26 @@
 <?php
 use Pugs\Database as DB;
-
 session_start();
 
 require_once "../../internal/classes/database.php";
 $db = new DB("dev");
 
-if(isset($_REQUEST['do'])) {
-
-  switch ($_REQUEST['do']){
+if (isset($_REQUEST['do'])) {
+    switch ($_REQUEST['do']) {
 
     // Register called
     case 'register':
-      if(!(isset($_REQUEST['username'], $_REQUEST['password'])))
-        die("missing info");
+      if (!(isset($_REQUEST['username'], $_REQUEST['password']))) {
+          die("missing info");
+      }
 
       $register = $db->userRegister($_REQUEST['username'], $_REQUEST['password']);
 
-      if(!$register) {
-        die("Your username is taken :(");
+      if (!$register) {
+          die("Your username is taken :(");
       } else {
-        die("Success!");
+          header("Location: ../index.html#Success");
+          die("Success!");
       }
       break;
 
@@ -28,22 +28,26 @@ if(isset($_REQUEST['do'])) {
     case 'logout':
       session_destroy();
       $_SESSION = []; // Apperently above doesnt remove session properly
+      header("Location: ../index.html");
       die("Logged out");
       break;
 
     // Login called
     case 'login':
-      if (isset($_SESSION['username']))
-	die("You're already logged in " . $_SESSION['username']);
+      if (isset($_SESSION['username'])) {
+          die("You're already logged in " . $_SESSION['username']);
+      }
 
-      if(!(isset($_REQUEST['username'], $_REQUEST['password'])))
-        die("missing info");
+      if (!(isset($_REQUEST['username'], $_REQUEST['password']))) {
+          die("missing info");
+      }
       $login = $db->userLogin($_REQUEST['username'], $_REQUEST['password']);
       switch ($login) {
         case 0:
           die("Wrong info");
           break;
         case 1:
+          header("Location: ../index.html#Success");
           die("Success! You're now logged in " . $_SESSION['username']);
           break;
         case 2:
