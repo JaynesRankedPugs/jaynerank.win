@@ -1,6 +1,7 @@
 <?php
 // PUGS Database CLASS
 namespace Pugs;
+
 use PDO;
 
 {
@@ -95,13 +96,14 @@ use PDO;
                   "SELECT $col FROM `Main` m, (SELECT @curRank := 0) r ".
                   "ORDER by `rating` DESC"
               );
-              // no break
+              break;
               case "no-games":
               $do = $this->conn->prepare(
                   "SELECT $col FROM `Main` m, (SELECT @curRank := 0) r ".
                   "WHERE (wins+losses+draws) = 0 ORDER by `rating` DESC"
               );
-              break;              default:
+              break;
+              default:
               $do = $this->conn->prepare(
                   "SELECT $col FROM `Main` m, (SELECT @curRank := 0) r ".
                   "WHERE (wins+losses+draws) > 0 ORDER by `rating` DESC"
@@ -113,7 +115,7 @@ use PDO;
               if ($total) { // To avoid warnings, let me know if there is a better looking one.
                   $winrate = round(100 * $row["wins"] / ($total), 1); // if $total = 0
               } else {
-                $winrate = 0;
+                  $winrate = 0;
               }
               $winrate = (is_nan($winrate) ? 0 : $winrate);
               $this->resp .= "<tr>";
