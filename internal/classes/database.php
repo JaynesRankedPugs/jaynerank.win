@@ -112,6 +112,8 @@ use PDO;
               $total   = $row["wins"] + $row["losses"] + $row["draws"];
               if ($total) { // To avoid warnings, let me know if there is a better looking one.
                   $winrate = round(100 * $row["wins"] / ($total), 1); // if $total = 0
+              } else {
+                $winrate = 0;
               }
               $winrate = (is_nan($winrate) ? 0 : $winrate);
               $this->resp .= "<tr>";

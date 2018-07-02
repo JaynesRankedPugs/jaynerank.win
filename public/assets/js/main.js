@@ -10,12 +10,14 @@ $("#search-player").on("keyup", function() {
 })
 
 $('input#mode').on('change', function() {
-  var b = $(this).val();
-  $("#leaderboard").load(leaderboard, {
-    mode: b
-  }, function() {
-    $("#search-player").keyup()
-  })
+  if ($(this).is(":checked")) {
+    var b = $(this).val();
+    $("#leaderboard").load(leaderboard, {
+      mode: b
+    }, function() {
+      $("#search-player").keyup()
+    })
+  }
   $('input#mode').not(this).prop('checked', false);
 });
 

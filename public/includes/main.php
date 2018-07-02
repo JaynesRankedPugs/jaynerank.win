@@ -19,7 +19,7 @@ if (isset($_REQUEST['do'])) {
       if (!$register) {
           die("Your username is taken :(");
       } else {
-          header("Location: ../index.html#Success");
+          header("Location: ../#Success");
           die("Success!");
       }
       break;
@@ -28,7 +28,7 @@ if (isset($_REQUEST['do'])) {
     case 'logout':
       session_destroy();
       $_SESSION = []; // Apperently above doesnt remove session properly
-      header("Location: ../index.html");
+      header("Location: ../index.php");
       die("Logged out");
       break;
 
@@ -47,7 +47,7 @@ if (isset($_REQUEST['do'])) {
           die("Wrong info");
           break;
         case 1:
-          header("Location: ../index.html#Success");
+          header("Location: ../index.php#Success");
           die("Success! You're now logged in " . $_SESSION['username']);
           break;
         case 2:
