@@ -129,7 +129,7 @@ use PDO;
       }
 
       /**
-       * Used for login if we ever need it. Panel is in work.
+       * Used for register
        * @param string $username
        * @param string $password
        * @return bool
