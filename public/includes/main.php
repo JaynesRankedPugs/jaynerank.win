@@ -1,9 +1,10 @@
 <?php
 use Pugs\Database as DB;
 
+session_start();
+
 require_once "../../internal/classes/database.php";
 $db = new DB("dev");
-
 
 if(isset($_REQUEST['do'])) {
 
@@ -23,18 +24,27 @@ if(isset($_REQUEST['do'])) {
       }
       break;
 
+    // Logout called
+    case 'logout':
+      session_destroy();
+      $_SESSION = []; // Apperently above doesnt remove session properly
+      die("Logged out");
+      break;
+
     // Login called
     case 'login':
-      if(!in_array($_REQUEST['login'], ["username","password"]))
-        die("missing info");
-      $login = $db->userLogin($_REQUEST['username'], $password);
+      if (isset($_SESSION['username']))
+	die("You're already logged in " . $_SESSION['username']);
 
+      if(!(isset($_REQUEST['username'], $_REQUEST['password'])))
+        die("missing info");
+      $login = $db->userLogin($_REQUEST['username'], $_REQUEST['password']);
       switch ($login) {
         case 0:
           die("Wrong info");
           break;
         case 1:
-          die("Success!");
+          die("Success! You're now logged in " . $_SESSION['username']);
           break;
         case 2:
           die("Username not found");
@@ -48,6 +58,3 @@ if(isset($_REQUEST['do'])) {
       break;
   }
 }
-
-
- ?>

@@ -26,9 +26,6 @@
           <a class="nav-link" href="rules.html">Rules</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="login.html">Login</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="register.html">Register</a>
         </li>
       </ul>
@@ -36,13 +33,12 @@
   </nav>
   <div class="content">
     <div class="container-fluid">
-      <h1 class="font-weight-light">Season 1 Rankings <span class="d-md-none"><br></span> <small class=
-      "text-black-50 font-weight-light">20th Jun 2018-Present</small></h1>
-      <p><input type="text" id="search-player" placeholder="Search for user..." autofocus=""></p>
-      <p><input type="checkbox" id="mode" value="all"> List all registered users<br>
-      <input type="checkbox" id="mode" value="top10"> List top 10 users<br>
-      <input type="checkbox" id="mode" value="most-games"> List users with most games<br>
-      <input type="checkbox" id="mode" value="no-games"> List users with no games<br></p>
+      <h1 class="font-weight-light">Login Page</h1>
+      <form action="includes/main.php" method="post">
+        <p><input type="text" name="username" placeholder="Username" autofocus=""></p>
+        <p><input type="password" name="password" placeholder="********" autofocus=""></p>
+        <p><input type="submit" name="do" value="login"></p>
+      </form>
       <div class="d-flex justify-content-center">
         <div id="leaderboard" class="w-md-65"></div>
       </div>
@@ -59,6 +55,6 @@
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script> 
-  <script type="text/javascript" src="/assets/js/main.js" defer></script> <!-- Dev -->
+  <!-- Dev -->
 </body>
 </html>

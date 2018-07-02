@@ -62,7 +62,7 @@ use PDO;
      /**
       * Returns leaderboard under spesificed conditions
       *
-      * @param  string    $mode  What method to select users from.
+      * @param  string    $mode  What method to select Users from.
       * @return string    Return leaderboard
       */
       public function getBoard($mode): string
@@ -177,7 +177,7 @@ use PDO;
       {
 
         $do =
-          $this->conn->prepare("SELECT * FROM users WHERE username = (:username)");
+          $this->conn->prepare("SELECT * FROM Users WHERE username = (:username)");
         $do->bindParam(":username", $username);
         $do->execute();
         $result = $do->fetch();
@@ -189,7 +189,8 @@ use PDO;
 
         // Password matches, user logged in.
         if (password_verify($password, $result['password'])) {
-          return 1;
+          $_SESSION["username"] = $username;
+	  return 1;
         }
 
         // Banned
