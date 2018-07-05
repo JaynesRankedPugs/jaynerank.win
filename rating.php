@@ -3,8 +3,10 @@
 function array_is_set($array) {
   return count($array) == count(array_unique($array));
 }
-
-if(isset($_POST['team1_player1'],
+$login_answer = 'test';
+$login_code   = $_POST['login_code'];
+if(isset($_POST['login_code'],
+         $_POST['team1_player1'],
          $_POST['team1_player2'],
          $_POST['team1_player3'],
          $_POST['team1_player4'],
@@ -16,7 +18,7 @@ if(isset($_POST['team1_player1'],
          $_POST['team2_player4'],
          $_POST['team2_player5'],
          $_POST['team2_player6'],
-         $_POST['result']))
+         $_POST['result']) and $login_code === $login_answer)
 {
     require_once  "/opt/dbsettings.php";
     $result   = $_POST['result'];
